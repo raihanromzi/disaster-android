@@ -3,9 +3,8 @@ package com.gigih.disasterapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.gigih.disasterapp.databinding.ActivityMainBinding
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.maps.android.ktx.addMarker
+import com.gigih.disasterapp.fragments.MapsFragment
+import com.gigih.disasterapp.fragments.TestNewFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,17 +12,15 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val sydney = LatLng(-33.852, 151.211)
-        val mapFragment = supportFragmentManager.findFragmentById(
-            R.id.map_fragment
-        ) as SupportMapFragment
+        // add maps fragment, and bottom sheet fragment
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.map_fragment, MapsFragment())
+            commit()
+        }
 
-        // Google Maps
-        mapFragment.getMapAsync { googleMap ->
-            googleMap.addMarker {
-                position(sydney)
-                title("Marker in Sydney")
-            }
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.new_fragment, TestNewFragment())
+            commit()
         }
     }
 }
