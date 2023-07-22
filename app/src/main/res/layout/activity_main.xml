@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+    <!-- Maps Fragment -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/maps_container"
         android:name="com.gigih.disasterapp.fragments.MapsFragment"
@@ -14,7 +16,32 @@
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_maps" />
 
+    <FrameLayout
+        android:id="@+id/searchLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.search.SearchBar
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:hint="Cari Bencana">
+
+        </com.google.android.material.search.SearchBar>
+
+        <com.google.android.material.search.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:hint="Cari Bencana"
+            app:layout_anchor="@id/searchBar">
+
+        </com.google.android.material.search.SearchView>
+    </FrameLayout>
+
     <!-- Bottom Sheet   -->
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
@@ -71,11 +98,8 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         </FrameLayout>
 
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
