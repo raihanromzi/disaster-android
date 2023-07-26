@@ -1,4 +1,4 @@
-package com.gigih.disasterapp.fragments
+package com.gigih.disasterapp.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

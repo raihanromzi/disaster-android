@@ -2,4 +2,8 @@
     <string name="app_name">Disaster App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cari_bencana">Cari Bencana</string>
+    <string name="informasi_bencana">Informasi Bencana</string>
+    <string name="banjir">Banjir</string>
+    <string name="setting">Setting</string>
 </resources>

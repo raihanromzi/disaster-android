@@ -1,10 +1,10 @@
-package com.gigih.disasterapp
+package com.gigih.disasterapp.ui
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.gigih.disasterapp.R
 import com.gigih.disasterapp.databinding.ActivityMainBinding
-import com.gigih.disasterapp.fragments.MapsFragment
 
 
 class MainActivity : AppCompatActivity() {

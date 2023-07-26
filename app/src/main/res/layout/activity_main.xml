@@ -5,13 +5,13 @@
     android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
 
     <!-- Maps Fragment -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/maps_container"
-        android:name="com.gigih.disasterapp.fragments.MapsFragment"
+        android:name="com.gigih.disasterapp.ui.MapsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_maps" />
@@ -26,7 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:hint="Cari Bencana">
+            android:hint="@string/cari_bencana"
+            app:menu="@menu/searchbar_menu">
 
         </com.google.android.material.search.SearchBar>
 
@@ -34,14 +35,116 @@
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:hint="Cari Bencana"
+            android:layout_margin="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="@string/cari_bencana"
             app:layout_anchor="@id/searchBar">
 
         </com.google.android.material.search.SearchView>
+
+        <!-- Disaster List -->
+        <HorizontalScrollView
+            android:id="@+id/disaster_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="88dp"
+            android:fillViewport="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_banjir"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:text="@string/banjir"
+                    android:textColor="@color/black"
+                    app:icon="@drawable/baseline_add_24"
+                    app:iconTint="@color/black"
+                    app:strokeColor="@color/primary_color" />
+
+                <Button
+                    android:id="@+id/btn_gempa_bumi"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/baseline_add_24"
+                    android:text="Gempa Bumi"
+                    android:textColor="@color/black"
+                    app:iconTint="@color/black"
+                    app:strokeColor="@color/primary_color" />
+
+                <Button
+                    android:id="@+id/btn_angin_kencang"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/baseline_add_24"
+                    android:text="Angin Kencang"
+                    android:textColor="@color/black"
+                    app:iconTint="@color/black"
+                    app:strokeColor="@color/primary_color" />
+
+                <Button
+                    android:id="@+id/btn_kabut_asap"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/baseline_add_24"
+                    android:text="Kabut Asap"
+                    android:textColor="@color/black"
+                    app:iconTint="@color/black"
+                    app:strokeColor="@color/primary_color" />
+
+                <Button
+                    android:id="@+id/btn_kebakaran_hutan"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/baseline_add_24"
+                    android:text="Kebakaran Hutan"
+                    android:textColor="@color/black"
+                    app:iconTint="@color/black"
+                    app:strokeColor="@color/primary_color" />
+
+                <Button
+                    android:id="@+id/btn_gunung_api"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/baseline_add_24"
+                    android:text="Gunung Api"
+                    android:textColor="@color/black"
+                    app:iconTint="@color/black"
+                    app:strokeColor="@color/primary_color" />
+
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
     </FrameLayout>
 
-    <!-- Bottom Sheet   -->
 
+    <!-- Bottom Sheet   -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
@@ -79,7 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:padding="10dp"
-                    android:text="Informasi Bencana"
+                    android:text="@string/informasi_bencana"
                     app:fontFamily="sans-serif-black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -87,6 +190,7 @@
 
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/disaster_list_rv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="64dp"
