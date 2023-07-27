@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsFragment : Fragment(), OnMapReadyCallback {
 
+    private var mMap: GoogleMap? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,8 +32,23 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(p0: GoogleMap) {
-        val sydney = LatLng(-34.0, 151.0)
+        val sydney = LatLng(
+            -6.12562,
+            106.784538
+        )
         p0.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         p0.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
+
+    fun updateMapWithLocation(latitude: Double, longitude: Double, title: String) {
+        val location = LatLng(latitude, longitude)
+
+        // Clear any existing markers
+        mMap?.clear()
+
+        // Add the new marker and zoom to the location
+        mMap?.addMarker(MarkerOptions().position(location).title(title))
+        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
+    }
+
 }
