@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_sort"
+        android:id="@+id/setting_button"
         android:icon="@drawable/baseline_settings_24"
         android:title="@string/setting"
         android:iconTint="@color/primary_color"

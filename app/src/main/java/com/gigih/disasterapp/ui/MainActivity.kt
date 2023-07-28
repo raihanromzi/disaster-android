@@ -1,5 +1,6 @@
 package com.gigih.disasterapp.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -44,6 +45,19 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, searchView.text, Toast.LENGTH_SHORT).show()
                 false
             }
+            searchBar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.setting_button -> {
+                        //intent to move to setting activity
+                        val move = Intent(this@MainActivity, SettingActivity::class.java)
+                        startActivity(move)
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+
         }
 
         supportActionBar?.hide()
