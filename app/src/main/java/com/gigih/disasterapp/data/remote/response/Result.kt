@@ -5,14 +5,14 @@ import com.google.gson.annotations.SerializedName
 data class Result(
 
     @field:SerializedName("objects")
-    val objects: Objects? = null,
+    val objects: Objects,
 
     @field:SerializedName("bbox")
-    val bbox: List<Any?>? = null,
+    val bbox: List<Any>,
 
     @field:SerializedName("type")
-    val type: String? = null,
+    val type: String,
 
     @field:SerializedName("arcs")
-    val arcs: List<Any?>? = null
+    val arcs: List<Any>
 )

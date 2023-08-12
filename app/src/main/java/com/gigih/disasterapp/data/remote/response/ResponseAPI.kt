@@ -5,8 +5,8 @@ import com.google.gson.annotations.SerializedName
 data class ResponseAPI(
 
     @field:SerializedName("result")
-    val result: Result? = null,
+    val result: Result,
 
     @field:SerializedName("statusCode")
-    val statusCode: Int? = null
+    val statusCode: Int
 )

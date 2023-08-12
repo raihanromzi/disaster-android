@@ -5,41 +5,41 @@ import com.google.gson.annotations.SerializedName
 data class Properties(
 
     @field:SerializedName("image_url")
-    val imageUrl: String? = null,
+    val imageUrl: String,
 
     @field:SerializedName("disaster_type")
-    val disasterType: String? = null,
+    val disasterType: String,
 
     @field:SerializedName("created_at")
-    val createdAt: String? = null,
+    val createdAt: String,
 
     @field:SerializedName("source")
-    val source: String? = null,
+    val source: String,
 
     @field:SerializedName("title")
-    val title: String? = null,
+    val title: String,
 
     @field:SerializedName("url")
-    val url: String? = null,
+    val url: String,
 
     @field:SerializedName("tags")
-    val tags: Tags? = null,
+    val tags: Tags,
 
     @field:SerializedName("partner_icon")
-    val partnerIcon: Any? = null,
+    val partnerIcon: Any,
 
     @field:SerializedName("report_data")
-    val reportData: Any? = null,
+    val reportData: Any,
 
     @field:SerializedName("pkey")
-    val pkey: String? = null,
+    val pkey: String,
 
     @field:SerializedName("text")
-    val text: String? = null,
+    val text: String,
 
     @field:SerializedName("partner_code")
-    val partnerCode: Any? = null,
+    val partnerCode: Any,
 
     @field:SerializedName("status")
-    val status: String? = null
+    val status: String
 )

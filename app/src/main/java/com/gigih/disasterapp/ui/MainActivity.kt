@@ -2,7 +2,6 @@ package com.gigih.disasterapp.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -10,21 +9,12 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gigih.disasterapp.R
 import com.gigih.disasterapp.data.remote.response.GeometriesItem
-import com.gigih.disasterapp.data.remote.response.ResponseAPI
-import com.gigih.disasterapp.data.remote.retrofit.ApiConfig
 import com.gigih.disasterapp.databinding.ActivityMainBinding
 import com.gigih.disasterapp.ui.adapter.DisasterAdapter
-import retrofit2.Call
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-
-    companion object {
-        private const val TAG = "MainActivity"
-        private const val START = "2017-12-04T00%3A00%3A00%2B0700"
-        private const val END = "2017-12-06T05%3A00%3A00%2B0700"
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,33 +63,6 @@ class MainActivity : AppCompatActivity() {
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.disasterListRv.addItemDecoration(itemDecoration)
 
-        getDisasterData()
-
-    }
-
-    private fun getDisasterData() {
-        val client = ApiConfig.getApiService().getDisaster(START, END)
-
-        client.enqueue(object : retrofit2.Callback<ResponseAPI> {
-            override fun onResponse(
-                call: Call<ResponseAPI>,
-                response: retrofit2.Response<ResponseAPI>
-            ) {
-                if (response.isSuccessful) {
-                    val responseAPI = response.body()
-                    if (responseAPI != null) {
-                        Log.d(TAG, "onResponse: $responseAPI")
-                        setDisasterData(responseAPI.result?.objects?.output?.geometries)
-                    }
-                } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseAPI>, t: Throwable) {
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
-            }
-        })
     }
 
     private fun setDisasterData(disasterData: List<GeometriesItem?>?) {
