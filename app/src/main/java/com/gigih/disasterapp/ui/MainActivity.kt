@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gigih.disasterapp.R
 import com.gigih.disasterapp.data.remote.response.GeometriesItem
-import com.gigih.disasterapp.data.remote.response.Response
+import com.gigih.disasterapp.data.remote.response.ResponseAPI
 import com.gigih.disasterapp.data.remote.retrofit.ApiConfig
 import com.gigih.disasterapp.databinding.ActivityMainBinding
 import com.gigih.disasterapp.ui.adapter.DisasterAdapter
@@ -80,10 +80,10 @@ class MainActivity : AppCompatActivity() {
     private fun getDisasterData() {
         val client = ApiConfig.getApiService().getDisaster(START, END)
 
-        client.enqueue(object : retrofit2.Callback<Response> {
+        client.enqueue(object : retrofit2.Callback<ResponseAPI> {
             override fun onResponse(
-                call: Call<Response>,
-                response: retrofit2.Response<Response>
+                call: Call<ResponseAPI>,
+                response: retrofit2.Response<ResponseAPI>
             ) {
                 if (response.isSuccessful) {
                     val responseAPI = response.body()
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<Response>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseAPI>, t: Throwable) {
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })
