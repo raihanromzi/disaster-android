@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gigih.disasterapp.R
@@ -28,6 +29,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Thread.sleep(3000)
+        installSplashScreen()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -87,7 +90,6 @@ class MainActivity : AppCompatActivity() {
                     if (responseAPI != null) {
                         Log.d(TAG, "onResponse: $responseAPI")
                         setDisasterData(responseAPI.result?.objects?.output?.geometries)
-                        setMarkerOnMap(33.8688, 151.2093, "Hello")
                     }
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
@@ -104,13 +106,6 @@ class MainActivity : AppCompatActivity() {
         val adapter = DisasterAdapter()
         adapter.submitList(disasterData)
         binding.disasterListRv.adapter = adapter
-    }
-
-    // set market on map fragment
-    private fun setMarkerOnMap(latitude: Double, longitude: Double, title: String) {
-        val mapsFragment =
-            supportFragmentManager.findFragmentById(R.id.maps_container) as MapsFragment?
-        mapsFragment?.updateMapWithLocation(latitude, longitude, title)
     }
 
 

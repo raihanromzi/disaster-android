@@ -20,4 +20,16 @@
 
 
     <style name="Theme.DisasterApp" parent="Base.Theme.DisasterApp" />
+
+    <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">
+            @color/white
+        </item>
+        <item name="windowSplashScreenAnimatedIcon">
+            @drawable/logo_app_disaster
+        </item>
+        <item name="postSplashScreenTheme">
+            @style/Base.Theme.DisasterApp
+        </item>
+    </style>
 </resources>
