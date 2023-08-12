@@ -3,19 +3,19 @@ package com.gigih.disasterapp.ui
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.gigih.disasterapp.R
 import com.gigih.disasterapp.data.remote.response.GeometriesItem
 import com.gigih.disasterapp.databinding.ActivityMainBinding
 import com.gigih.disasterapp.ui.adapter.DisasterAdapter
+import com.gigih.disasterapp.ui.viewmodel.MainViewModel
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-
+    private val mainViewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.maps_container, MapsFragment())
             commit()
         }
-
 
         with(binding) {
             searchView.setupWithSearchBar(searchBar)
@@ -50,22 +49,17 @@ class MainActivity : AppCompatActivity() {
                     else -> false
                 }
             }
-
         }
 
         supportActionBar?.hide()
 
-        // set recyclerview
-        val layoutManager = LinearLayoutManager(this@MainActivity)
-        binding.disasterListRv.layoutManager = layoutManager
-
-        // add divider
-        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
-        binding.disasterListRv.addItemDecoration(itemDecoration)
+        mainViewModel.disasters.observe(this) { disaster ->
+            setDisasterData(disaster)
+        }
 
     }
 
-    private fun setDisasterData(disasterData: List<GeometriesItem?>?) {
+    private fun setDisasterData(disasterData: List<GeometriesItem>) {
         val adapter = DisasterAdapter()
         adapter.submitList(disasterData)
         binding.disasterListRv.adapter = adapter
