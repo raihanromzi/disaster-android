@@ -90,10 +90,7 @@ class MainActivity : AppCompatActivity() {
                 mainViewModel.refreshDisasterData()
             }
         }
-
-
     }
-
 
     private fun setDisasterData(disasterData: List<GeometriesItem>) {
         val adapter = DisasterAdapter()
@@ -104,6 +101,5 @@ class MainActivity : AppCompatActivity() {
     private fun showLoading(isLoading: Boolean) {
         activityMainBinding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
-
 
 }

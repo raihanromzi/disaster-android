@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.gigih.disasterapp.R
 import com.gigih.disasterapp.data.remote.response.GeometriesItem
+import com.gigih.disasterapp.databinding.FragmentMapsBinding
 import com.gigih.disasterapp.ui.viewmodel.MainViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -19,15 +20,16 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsFragment : Fragment() {
 
-    private val mainViewModel by viewModels<MainViewModel>()
+    private val mainViewModel by activityViewModels<MainViewModel>()
     private val boundsBuilder = LatLngBounds.Builder()
-
+    private lateinit var fragmentMapsBinding: FragmentMapsBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_maps, container, false)
+    ): View {
+        fragmentMapsBinding = FragmentMapsBinding.inflate(layoutInflater, container, false)
+        return fragmentMapsBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,7 +75,18 @@ class MapsFragment : Fragment() {
         mainViewModel.disasters.observe(this) { disasters ->
             addDisasterMarker(googleMap, disasters)
         }
+        mainViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
 
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            fragmentMapsBinding.loadingIndicator.visibility = View.VISIBLE
+        } else {
+            fragmentMapsBinding.loadingIndicator.visibility = View.GONE
+        }
     }
 
 
