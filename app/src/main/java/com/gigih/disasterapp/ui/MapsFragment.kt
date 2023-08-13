@@ -75,19 +75,7 @@ class MapsFragment : Fragment() {
         mainViewModel.disasters.observe(this) { disasters ->
             addDisasterMarker(googleMap, disasters)
         }
-        mainViewModel.isLoading.observe(this) {
-            showLoading(it)
-        }
 
     }
-
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            fragmentMapsBinding.loadingIndicator.visibility = View.VISIBLE
-        } else {
-            fragmentMapsBinding.loadingIndicator.visibility = View.GONE
-        }
-    }
-
-
+    
 }

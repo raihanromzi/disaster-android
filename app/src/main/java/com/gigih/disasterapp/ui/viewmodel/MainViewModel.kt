@@ -43,6 +43,7 @@ class MainViewModel : ViewModel() {
     private fun getDisasterData() {
         val client = ApiConfig.getApiService().getDisaster(START, END)
 
+        _isLoading.value = true
         client.enqueue(object : retrofit2.Callback<ResponseAPI> {
             override fun onResponse(
                 call: Call<ResponseAPI>,
