@@ -2,6 +2,7 @@ package com.gigih.disasterapp.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -14,22 +15,22 @@ import com.gigih.disasterapp.ui.viewmodel.MainViewModel
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var activityMainBinding: ActivityMainBinding
     private val mainViewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Thread.sleep(3000)
         installSplashScreen()
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(activityMainBinding.root)
 
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.maps_container, MapsFragment())
             commit()
         }
 
-        with(binding) {
+        with(activityMainBinding) {
             searchView.setupWithSearchBar(searchBar)
             searchView.editText.setOnEditorActionListener { _, _, _ ->
                 searchBar.text = searchView.text
@@ -57,12 +58,20 @@ class MainActivity : AppCompatActivity() {
             setDisasterData(disaster)
         }
 
+        mainViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
+
     }
 
     private fun setDisasterData(disasterData: List<GeometriesItem>) {
         val adapter = DisasterAdapter()
         adapter.submitList(disasterData)
-        binding.disasterListRv.adapter = adapter
+        activityMainBinding.disasterListRv.adapter = adapter
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        activityMainBinding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
 

@@ -37,18 +37,12 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             106.784538
         )
         p0.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+        p0.addMarker(
+            MarkerOptions().position(LatLng(-7.12562, 105.784538)).title("Marker in Sydney 2")
+        )
+
         p0.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 
-    fun updateMapWithLocation(latitude: Double, longitude: Double, title: String) {
-        val location = LatLng(latitude, longitude)
-
-        // Clear any existing markers
-        mMap?.clear()
-
-        // Add the new marker and zoom to the location
-        mMap?.addMarker(MarkerOptions().position(location).title(title))
-        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
-    }
 
 }
