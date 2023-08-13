@@ -11,6 +11,9 @@ interface ApiService {
     @GET("reports/archive")
     fun getDisaster(
         @Query("start", encoded = true) startTime: String,
-        @Query("end", encoded = true) endTime: String
+        @Query("end", encoded = true) endTime: String,
+        @Query("admin") city: String? = null,
     ): Call<ResponseAPI>
+
+
 }

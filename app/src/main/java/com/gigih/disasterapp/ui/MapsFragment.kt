@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import com.gigih.disasterapp.R
 import com.gigih.disasterapp.data.remote.response.GeometriesItem
 import com.gigih.disasterapp.ui.viewmodel.MainViewModel
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -52,6 +53,16 @@ class MapsFragment : Fragment() {
             )
             boundsBuilder.include(latLng)
         }
+
+        val bounds = boundsBuilder.build()
+        map.animateCamera(
+            CameraUpdateFactory.newLatLngBounds(
+                bounds,
+                resources.displayMetrics.widthPixels,
+                resources.displayMetrics.heightPixels,
+                300
+            )
+        )
     }
 
     private val callback = OnMapReadyCallback { googleMap ->
