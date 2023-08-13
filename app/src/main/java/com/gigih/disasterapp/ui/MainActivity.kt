@@ -54,6 +54,8 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        mainViewModel.refreshDisasterData()
+
         mainViewModel.disasters.observe(this) { disaster ->
             setDisasterData(disaster)
         }
@@ -62,7 +64,36 @@ class MainActivity : AppCompatActivity() {
             showLoading(it)
         }
 
+        with(activityMainBinding) {
+            btnBanjir.setOnClickListener {
+                mainViewModel.onButtonDisasterTypeClicked("flood")
+                mainViewModel.refreshDisasterData()
+            }
+            btnAnginKencang.setOnClickListener {
+                mainViewModel.onButtonDisasterTypeClicked("wind")
+                mainViewModel.refreshDisasterData()
+            }
+            btnGempaBumi.setOnClickListener {
+                mainViewModel.onButtonDisasterTypeClicked("earthquake")
+                mainViewModel.refreshDisasterData()
+            }
+            btnGunungApi.setOnClickListener {
+                mainViewModel.onButtonDisasterTypeClicked("volcano")
+                mainViewModel.refreshDisasterData()
+            }
+            btnKabutAsap.setOnClickListener {
+                mainViewModel.onButtonDisasterTypeClicked("haze")
+                mainViewModel.refreshDisasterData()
+            }
+            btnKebakaranHutan.setOnClickListener {
+                mainViewModel.onButtonDisasterTypeClicked("fire")
+                mainViewModel.refreshDisasterData()
+            }
+        }
+
+
     }
+
 
     private fun setDisasterData(disasterData: List<GeometriesItem>) {
         val adapter = DisasterAdapter()

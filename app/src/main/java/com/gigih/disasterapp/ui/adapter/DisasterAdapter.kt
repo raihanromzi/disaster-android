@@ -1,6 +1,5 @@
 package com.gigih.disasterapp.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -30,15 +29,10 @@ class DisasterAdapter :
 
         fun bind(disaster: GeometriesItem) {
             // check if disaster is null
-            Log.d(
-                "DisasterAdapter BIND API",
-                "bind: ${disaster.properties?.title.toString().length}"
-            )
-            if (disaster.properties?.title.toString().length < 2) {
+            if (disaster.properties.title.toString().length < 2) {
                 binding.tvDisasterItem.text = "Terjadi Bencana Alam"
-                Log.d("Hello", "Masuk ah")
             } else {
-                binding.tvDisasterItem.text = disaster.properties?.title
+                binding.tvDisasterItem.text = disaster.properties.title
             }
 
             binding.tvCoordinateDisasterItem.text = disaster.coordinates.toString()
@@ -46,7 +40,7 @@ class DisasterAdapter :
 
             // using glide to load image from url to imageview
             Glide.with(itemView.context)
-                .load(disaster.properties?.imageUrl)
+                .load(disaster.properties.imageUrl)
                 // handle error
                 .apply(RequestOptions().error(com.google.maps.android.R.drawable.common_google_signin_btn_icon_light_normal_background))
                 .into(binding.ivDisasterItem)

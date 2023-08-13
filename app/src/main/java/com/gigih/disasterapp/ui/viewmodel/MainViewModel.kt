@@ -11,20 +11,33 @@ import retrofit2.Call
 
 class MainViewModel : ViewModel() {
 
-    init {
-        getDisasterData()
-    }
-
     private val _disasters = MutableLiveData<List<GeometriesItem>>()
     val disasters: LiveData<List<GeometriesItem>> = _disasters
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _searchQuery = MutableLiveData<String?>()
+    val searchQuery: LiveData<String?> = _searchQuery
+
+    private val _disasterType = MutableLiveData("flood")
+    val disasterType: LiveData<String> = _disasterType
+
+
     companion object {
-        private const val TAG = "MainActivity"
+        private const val TAG = "MainViewModel"
         private const val START = "2017-12-04T00%3A00%3A00%2B0700"
         private const val END = "2017-12-06T05%3A00%3A00%2B0700"
+    }
+
+    fun refreshDisasterData() {
+        // Call the API and update LiveData as necessary
+        getDisasterData()
+    }
+
+    fun onButtonDisasterTypeClicked(type: String) {
+        Log.d("disaster", _disasterType.value.toString())
+        _disasterType.value = type
     }
 
     private fun getDisasterData() {
@@ -39,8 +52,12 @@ class MainViewModel : ViewModel() {
                     _isLoading.value = false
                     val responseAPI = response.body()
                     if (responseAPI != null) {
-                        Log.d(TAG, "onResponse: $responseAPI")
-                        _disasters.value = responseAPI.result.objects.output.geometries
+                        val result = responseAPI.result.objects.output.geometries.filter {
+                            it.properties.disasterType == _disasterType.value
+                        }
+                        _disasters.value = result
+                        Log.d("result", "onResponse: $result")
+
                     }
                 } else {
                     _isLoading.value = true
@@ -54,5 +71,6 @@ class MainViewModel : ViewModel() {
             }
         })
     }
+
 
 }

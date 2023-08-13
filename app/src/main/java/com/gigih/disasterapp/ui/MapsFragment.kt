@@ -36,9 +36,12 @@ class MapsFragment : Fragment() {
         mapFragment?.getMapAsync(callback)
     }
 
-
     private fun addDisasterMarker(map: GoogleMap, disasters: List<GeometriesItem>) {
         map.clear()
+
+        if (disasters.isEmpty()) {
+            return
+        }
 
         disasters.forEach { disaster ->
             val lat = disaster.coordinates[1].toString().toDouble()
@@ -66,9 +69,11 @@ class MapsFragment : Fragment() {
     }
 
     private val callback = OnMapReadyCallback { googleMap ->
+        mainViewModel.refreshDisasterData()
         mainViewModel.disasters.observe(this) { disasters ->
             addDisasterMarker(googleMap, disasters)
         }
+
     }
 
 
