@@ -28,6 +28,7 @@ class DisasterAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(disaster: GeometriesItem) {
+
             // check if disaster is null
             if (disaster.properties.title.toString().length < 2) {
                 binding.tvDisasterItem.text = "Terjadi Bencana Alam"

@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
                 searchBar.text = searchView.text
                 searchView.hide()
                 Toast.makeText(this@MainActivity, searchView.text, Toast.LENGTH_SHORT).show()
+                mainViewModel.setSearchQuery(searchView.text.toString())
                 false
             }
             searchBar.setOnMenuItemClickListener {

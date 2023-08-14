@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.gigih.disasterapp.data.remote.response.GeometriesItem
 import com.gigih.disasterapp.data.remote.response.ResponseAPI
 import com.gigih.disasterapp.data.remote.retrofit.ApiConfig
+import com.gigih.disasterapp.data.utils.LocalData
 import retrofit2.Call
 
 class MainViewModel : ViewModel() {
@@ -17,7 +18,7 @@ class MainViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _searchQuery = MutableLiveData<String?>()
+    private val _searchQuery = MutableLiveData<String?>("ID-JK")
     val searchQuery: LiveData<String?> = _searchQuery
 
     private val _disasterType = MutableLiveData("flood")
@@ -35,8 +36,16 @@ class MainViewModel : ViewModel() {
         getDisasterData()
     }
 
+    fun setSearchQuery(query: String) {
+        val province = LocalData.getSupportedLocationType().filter {
+            it.province == query
+        }
+        Log.d("query", province.toString())
+        _searchQuery.value = province[0].code
+        getDisasterData()
+    }
+
     fun onButtonDisasterTypeClicked(type: String) {
-        Log.d("disaster", _disasterType.value.toString())
         _disasterType.value = type
     }
 
@@ -54,11 +63,9 @@ class MainViewModel : ViewModel() {
                     val responseAPI = response.body()
                     if (responseAPI != null) {
                         val result = responseAPI.result.objects.output.geometries.filter {
-                            it.properties.disasterType == _disasterType.value
+                            it.properties.disasterType == _disasterType.value && it.properties.tags.instanceRegionCode == _searchQuery.value
                         }
                         _disasters.value = result
-                        Log.d("result", "onResponse: $result")
-
                     }
                 } else {
                     _isLoading.value = true
@@ -72,6 +79,5 @@ class MainViewModel : ViewModel() {
             }
         })
     }
-
 
 }
